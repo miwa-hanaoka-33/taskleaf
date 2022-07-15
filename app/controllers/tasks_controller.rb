@@ -32,6 +32,7 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.new(task_params)
     if @task.save
+      logger.debug "task: #{@task.attributes.inspect}"
       redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
     else
       render :new
@@ -47,4 +48,6 @@ class TasksController < ApplicationController
   def set_task
     @task = current_user.tasks.find(params[:id])
   end
+
+  
 end
